@@ -1,0 +1,9 @@
+{
+  "arrowParens": "avoid",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "singleQuote": true,
+  "classNames": {
+    "order": "asc",
+    "minLength": 3
+  }
+}
