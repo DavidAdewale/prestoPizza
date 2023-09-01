@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { updateName } from './userSlice';
+import { capitalizeFirstLetter } from '../../utilities/helpers';
 
 function CreateUser() {
   const [username, setUsername] = useState('');
@@ -9,7 +11,10 @@ function CreateUser() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(username);
+    const nameOfUser = capitalizeFirstLetter(username);
+    dispatch(updateName(nameOfUser));
+    setUsername('');
+    navigate('/menu');
   }
   return (
     <form
