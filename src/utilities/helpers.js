@@ -11,7 +11,7 @@ export function capitalizeFirstLetter(str) {
 }
 
 export function formatCurrency(value) {
-  const amount = value * 450;
+  const amount = value * 350;
 
   return new Intl.NumberFormat('en', {
     style: 'currency',

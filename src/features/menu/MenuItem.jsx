@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../ui/Button';
 import { addItem, getCart, getCurrentQuantityById } from '../cart/cartSlice';
-import { formatCurrency } from '../../utilities/helpers';
+import { capitalizeFirstLetter, formatCurrency } from '../../utilities/helpers';
 import UpdateItemQuantity from '../cart/UpdateItemQuantity';
+import DeleteItem from '../cart/DeleteItem';
 
 function MenuItem({ item }) {
   const { id, name, imageUrl, ingredients, soldOut, unitPrice } = item;
@@ -21,17 +22,25 @@ function MenuItem({ item }) {
     dispatch(addItem(newItem));
   }
   return (
-    <li className="flex flex-col items-start gap-3 overflow-hidden rounded-lg bg-slate-50 p-2 shadow-lg">
+    <li className="max-w-52 flex flex-col items-start gap-3 overflow-hidden rounded-lg bg-slate-50 p-2 shadow-lg">
       <img
         src={imageUrl}
         alt={`image of ${name}`}
         className={`w-52 rounded-md ${soldOut ? 'opacity-70 grayscale' : ''}`}
       />
-      <p className="uppercase">{name}</p>
+      <div className="w-52 overflow-hidden">
+        <p className="text-lg font-medium">{name}</p>
+        <p className="w-full text-sm">
+          {ingredients.map(item => capitalizeFirstLetter(item)).join(', ')}
+        </p>
+      </div>
       <p className="font-bold">{formatCurrency(unitPrice)}</p>
 
       {isInCart && (
-        <UpdateItemQuantity currentQuantity={currentQuantity} pizzaId={id} />
+        <div className="flex w-full items-center justify-between">
+          <UpdateItemQuantity currentQuantity={currentQuantity} pizzaId={id} />
+          <DeleteItem pizzaId={id} />
+        </div>
       )}
       {soldOut && <div>Item sold out</div>}
       {!soldOut && !isInCart && (

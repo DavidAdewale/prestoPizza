@@ -6,7 +6,7 @@ function Menu() {
   const menu = useLoaderData();
 
   return (
-    <ul className="flex  flex-wrap items-center justify-center gap-5 p-8">
+    <ul className="flex flex-wrap  justify-center gap-5 p-8">
       {menu.map(item => (
         <MenuItem item={item} key={item.id} />
       ))}
