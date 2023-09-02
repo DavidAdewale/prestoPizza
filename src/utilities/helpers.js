@@ -9,3 +9,12 @@ export function capitalizeFirstLetter(str) {
 
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
+
+export function formatCurrency(value) {
+  const amount = value * 450;
+
+  return new Intl.NumberFormat('en', {
+    style: 'currency',
+    currency: 'NGN',
+  }).format(amount);
+}

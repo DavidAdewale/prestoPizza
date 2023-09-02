@@ -4,8 +4,9 @@ import MenuItem from './MenuItem';
 
 function Menu() {
   const menu = useLoaderData();
+
   return (
-    <ul className="flex w-6/12 flex-wrap items-center justify-center gap-5">
+    <ul className="flex  flex-wrap items-center justify-center gap-5 p-8">
       {menu.map(item => (
         <MenuItem item={item} key={item.id} />
       ))}

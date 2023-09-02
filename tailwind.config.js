@@ -5,7 +5,7 @@ export default {
   theme: {
     fontFamily: {
       sans: ['Urbanist', 'sans-serif'],
-      display: ['Modak', 'cursive'],
+      display: ['Corben', 'sans-serif'],
     },
   },
   plugins: [],
