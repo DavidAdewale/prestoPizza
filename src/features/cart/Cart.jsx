@@ -1,20 +1,29 @@
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserName } from '../user/userSlice';
-import { getCart, getTotalCartPrice } from './cartSlice';
+import { clearCart, getCart, getTotalCartPrice } from './cartSlice';
 import CartItem from './CartItem';
 import { formatCurrency } from '../../utilities/helpers';
 import EmptyCart from '../../ui/EmptyCart';
+import Button from '../../ui/Button';
+import { useNavigate } from 'react-router-dom';
 
 function Cart() {
+  const navigate = useNavigate();
   const username = useSelector(getUserName);
   const cart = useSelector(getCart);
   const totalAmount = useSelector(getTotalCartPrice);
-  console.log(cart);
+  const dispatch = useDispatch();
+
+  function handleClearCart() {
+    dispatch(clearCart());
+  }
+
   return (
-    <div className="mt-24 flex items-center justify-center">
-      <div className="rounded-lg bg-slate-50 p-8 sm:w-3/5  ">
-        <Link to="/menu">&larr; Back to menu</Link>
+    <div className="mt-24 flex flex-col items-center justify-center gap-5 ">
+      <div className="w-full rounded-lg bg-slate-50 p-4 shadow-xl sm:w-2/5 md:p-8">
+        <Button type="link" to="/menu">
+          &larr; Back to menu
+        </Button>
         {cart.length === 0 && <EmptyCart />}
         {cart.length > 0 && (
           <>
@@ -32,6 +41,16 @@ function Cart() {
           </>
         )}
       </div>
+      {cart.length > 0 && (
+        <div className="flex gap-2">
+          <Button type="primary" onClick={() => navigate('/order/new')}>
+            Order now
+          </Button>
+          <Button type="secondary" onClick={handleClearCart}>
+            Clear Cart
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

@@ -9,7 +9,7 @@ function CartItem({ item }) {
   const currentQuantity = useSelector(getCurrentQuantityById(pizzaId));
   return (
     <li className="grid w-full grid-cols-3 items-center gap-4 py-3">
-      <p className="md:text-md mt-3 text-sm font-medium">
+      <p className="mt-3 text-sm font-medium md:text-lg">
         {quantity}&times; {name}
       </p>
       <div className="flex w-24 flex-col  justify-between gap-2 justify-self-center md:flex-row md:items-center md:justify-center">
@@ -18,7 +18,7 @@ function CartItem({ item }) {
           pizzaId={pizzaId}
         />
       </div>
-      <p className="md:text-md justify-self-end text-sm">
+      <p className="justify-self-end text-sm md:text-lg">
         {formatCurrency(totalPrice)}
       </p>
     </li>

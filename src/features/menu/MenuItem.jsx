@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../ui/Button';
-import { addItem, getCart, getCurrentQuantityById } from '../cart/cartSlice';
+import { addItem, getCurrentQuantityById } from '../cart/cartSlice';
 import { capitalizeFirstLetter, formatCurrency } from '../../utilities/helpers';
 import UpdateItemQuantity from '../cart/UpdateItemQuantity';
 import DeleteItem from '../cart/DeleteItem';
