@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, getCart, getTotalCartPrice } from '../cart/cartSlice';
 import { useState } from 'react';
-import { redirect, useActionData, useNavigation } from 'react-router-dom';
+import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 import EmptyCart from '../../ui/EmptyCart';
 import Button from '../../ui/Button';
 import { fetchAdress } from '../user/userSlice';
@@ -35,6 +35,7 @@ function CreateOrder() {
   const dispatch = useDispatch();
 
   const formErrors = useActionData();
+
   const cart = useSelector(getCart);
   if (!cart.length)
     return (
@@ -49,7 +50,7 @@ function CreateOrder() {
         Ready to order? let&lsquo;s go!
       </h2>
 
-      <form method="POST">
+      <Form method="POST">
         <div className="form-field">
           <label className="text-lg">First name</label>
           <input
@@ -63,8 +64,12 @@ function CreateOrder() {
         <div className="form-field">
           <label className="text-lg">Phone number</label>
           <input className="input" type="tel" name="phone" required />
-          {formErrors?.phone && <p>{formErrors.phone}</p>}
         </div>
+        {formErrors?.phone && (
+          <p className="mt-3 rounded-lg bg-red-200 p-2 px-4 text-red-500">
+            {formErrors.phone}
+          </p>
+        )}
         <div className="relative">
           <div className="form-field">
             <label className="text-lg">Address</label>
@@ -77,7 +82,7 @@ function CreateOrder() {
               required
             />
             {addressStatus === 'error' && (
-              <p>
+              <p className="mt-3 rounded-lg bg-red-200 p-2 px-4 text-red-500">
                 There was a problem getting your address. Make sure to fill this
                 field
               </p>
@@ -126,7 +131,7 @@ function CreateOrder() {
               : `Order now for ${formatCurrency(totalPrice)}`}
           </Button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }
@@ -134,18 +139,21 @@ function CreateOrder() {
 export async function action({ request }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
+
   const order = {
     ...data,
     cart: JSON.parse(data.cart),
     priority: data.priority === 'true',
   };
-  console.log(order);
+  // console.log(order);
   const errors = {};
   if (!isValidPhone(order.phone))
     errors.phone =
       'Please give us your correct phone number, we might need to contact you';
   if (Object.keys(errors).length > 0) return errors;
+
   const newOrder = await createOrder(order);
+  console.log(newOrder);
   store.dispatch(clearCart());
   return redirect(`/order/${newOrder.id}`);
 }

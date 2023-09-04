@@ -6,10 +6,10 @@ function Button({ children, onClick, type, disabled, to }) {
   const styles = {
     primary:
       base +
-      ' bg-red-500 text-stone-50 py-2 px-4 text-sm hover:px-8 text-lg md:p-2 md:px-4 md:text-lg',
+      ' bg-red-500 text-stone-50 py-2 px-4 text-sm hover:px-8 text-lg md:p-2 md:px-4 md:text-lg hover:bg-red-700',
     secondary:
       base +
-      ' border-red-500 border py-2 px-4 text-sm text-red-500 hover:px-8 hover:bg-red-700 hover:text-stone-50 md:p-2 md:px-4 md:text-lg md:border-2',
+      ' border-red-500 border py-2 px-4 text-sm text-red-500 hover:px-8 hover:bg-red-700 hover:bg-red-700 hover:text-stone-50 md:p-2 md:px-4 md:text-lg md:border-2',
     small:
       base +
       ' bg-red-500 text-stone-50 p-2 px-4 hover:px-6 text-sm hover:bg-red-700',
